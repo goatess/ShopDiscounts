@@ -206,8 +206,8 @@ public class AppTest {
     }
 
     @Test
-    public void get_a_correct_discount_when_theres_2_copies_of_3_books_and_1_copy_of_the_other_2_books() {
-        final float COST = 49.6f;
+    public void get_correct_order_price_when_theres_2_copies_of_3_books_and_1_copy_of_the_other_2_books() {
+        final float COST = 49.6f;  // (5 * 8 * 0,7) + (3 * 8 * 0,9) = 28 + 21,6 = 49,6
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
         cart.addToBooks(Book.BOOK1);
