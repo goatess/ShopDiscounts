@@ -4,9 +4,10 @@ import java.util.List;
 public class Cart {
     private static final float BASE_DISCOUNT = 0.05f; // base discount is 0.05
     private static final int DISCOUNT_THRESHOLD = 4; // number of books threshold that lead to the specified discount
-    private float orderPrice, discount; // order price and specified discount for the lot
+    private int lowMultiplier, highMultiplier; // low and high multipliers to modify abse discount;
+    private float orderPrice, lotPrice, lotDiscount; // order price, lot price and specified discount for the lot
     private List<Book> cart, lot, order; // lists of books in cart, books in discount lot and books in final order
-
+    
     public Cart() {
         cart = new ArrayList<>();
         order = new ArrayList<>();
@@ -37,29 +38,28 @@ public class Cart {
     }
 
     private void applyDiscount(List<Book> lot) {
-        float lotPrice = 0;
-
+        lotPrice = 0f;
         applyBestDiscount();
         for (Book book : lot) {
             lotPrice += book.getPrice();
         }
 
-        lotPrice -= (lotPrice * discount);
+        lotPrice -= (lotPrice * lotDiscount);
         orderPrice += lotPrice;
     }
 
     private void applyBestDiscount() {
-        int lowDiscount = lot.size() - 1;
-        int highDiscount = lot.size() + (lot.size() - DISCOUNT_THRESHOLD);
+        lowMultiplier = lot.size() - 1;
+        highMultiplier = lot.size() + (lot.size() - DISCOUNT_THRESHOLD);
 
         if (lot.size() < DISCOUNT_THRESHOLD) {
-            discount = BASE_DISCOUNT * lowDiscount;
+            lotDiscount = BASE_DISCOUNT * lowMultiplier;
 
         } else if (lot.size() == DISCOUNT_THRESHOLD) {
-            discount = BASE_DISCOUNT * lot.size();
+            lotDiscount = BASE_DISCOUNT * lot.size();
 
         } else {
-            discount = BASE_DISCOUNT * highDiscount;
+            lotDiscount = BASE_DISCOUNT * highMultiplier;
         }
     }
 
