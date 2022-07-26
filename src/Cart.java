@@ -2,74 +2,78 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-
-    private float price = 0;
-    private List<Book> cart;
-    private List<Book> bundle;
-    private static final float BASE_PERCENT = 0.05f;
+    
+    private static final float BASE_DISCOUNT = 0.05f;
+    private static final int DISCOUNT_THRESHOLD = 4;
+    private float orderPrice, discount;
+    private List<Book> cart, lot, order;
 
     public Cart() {
         cart = new ArrayList<>();
+        order = new ArrayList<>();
     }
 
     public void addToCart(Book book) {
         cart.add(book);
     }
 
-    public void checkout() {
-        makeBundle();
-        calculateBundlePrice(calculateDiscount());
+    public void orderItemsInCart() {
+        applyDiscount(makeLot());
         while (cart.size() > 0) {
-            checkout();
+            orderItemsInCart();
         }
     }
+    
+    /** adds book to discounted lot  */
+    private List<Book> makeLot() {
+        lot = new ArrayList<>();
 
-    /** adds book to discounted bundle  */
-    private void makeBundle() {
-        bundle = new ArrayList<>();
         for (Book book : Book.values()) {
-
             if (cart.contains(book)) {
                 cart.remove(book);
-                bundle.add(book);
+                lot.add(book);
             }
         }
+
+        order.addAll(lot);
+        return lot;
     }
 
-    /** calculates bundle discount percentage  */
-    private void calculateBundlePrice(float percentage) {
-        float bundlePrice = bundle.size() * 8;
-        bundlePrice = bundlePrice - (bundlePrice * percentage);
-        price += bundlePrice;
+    private void applyDiscount(List<Book> lot) {
+        float lotPrice = 0;
+
+        applyBestDiscount();
+
+        for (Book book : lot) {
+            lotPrice += book.getPrice();
+        }
+
+        lotPrice = lotPrice - (lotPrice * discount);
+        orderPrice += lotPrice;
     }
 
-    private float calculateDiscount() {
-        float discount;
-        int bundledBooks = bundle.size();
+    private void applyBestDiscount() {
+        int lotSize = lot.size();
+        int lowDiscount = lotSize - 1;
+        int highDiscount = lotSize + (lotSize - DISCOUNT_THRESHOLD);
 
-        if (bundledBooks < 4) {
-            discount = BASE_PERCENT * (bundledBooks - 1);
+        if (lotSize < DISCOUNT_THRESHOLD) {
+            discount = BASE_DISCOUNT * lowDiscount;
 
-        } else if (bundledBooks == 4) {
-            discount = BASE_PERCENT * bundledBooks; // = 0.2f discount
+        } else if (lotSize == DISCOUNT_THRESHOLD) {
+            discount = BASE_DISCOUNT * lotSize; // = 0.2f discount
 
         } else {
-            discount = BASE_PERCENT * (bundledBooks + (bundledBooks - 4));
+            discount = BASE_DISCOUNT * highDiscount;
         }
-        return discount;
     }
 
-    public float getCartPrice() {
-        return price;
+    public float getOrderPrice() {
+        return orderPrice;
     }
 
     @Override
     public String toString() {
-        String recipe = "";
-        for (Book book : cart) {
-            recipe += book.toString() + "\n";    
-        }
-        recipe += "TOTAL PRICE AFTER DISCOUNTS: " + price;
-        return recipe;
+        return "TOTAL PRICE AFTER DISCOUNTS: " + orderPrice;
     }
 }
