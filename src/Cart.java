@@ -38,7 +38,7 @@ public class Cart {
 
     private void applyDiscount(List<Book> lot) {
         lotPrice = 0f;
-        applyBestDiscount();
+        selectBestDiscount();
         for (Book book : lot) {
             lotPrice += book.getPrice();
         }
@@ -47,7 +47,7 @@ public class Cart {
         orderPrice += lotPrice;
     }
 
-    private void applyBestDiscount() {
+    private void selectBestDiscount() {
         lowMultiplier = lot.size() - 1;
         highMultiplier = lot.size() + (lot.size() - MULTIPLIER_THRESHOLD);
         // get a low discount

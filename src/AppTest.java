@@ -1,5 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -7,15 +6,14 @@ import org.junit.Test;
 public class AppTest {
 
     @Test
-    public void one_copy_price_is_8_euros() {
+    public void price_of_one_copy_of_any_book_is_8_euros() {
         final int COST = 8;
-        Cart cart = new Cart();
         int bookPrice = Book.BOOK1.getPrice();
         assertEquals(COST, bookPrice);
     }
 
     @Test
-    public void one_copy_costs_8_euros() {
+    public void cart_price_of_1_copy_is_8_euros() {
         final float COST = 8f;
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
@@ -23,21 +21,8 @@ public class AppTest {
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 1);
     }
-
     @Test
-    public void get_a_5_discount_when_2_different_books_in_cart() {
-        final float COST = 15.2f;
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK2);
-        cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
-    }
-
-    @Test
-    public void dont_get_discount_if_all_2_books_in_cart_books_are_the_same() {
+    public void order_price_of_2_copies_of_book_1_is_16() {
         final float COST = 16f;
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
@@ -49,7 +34,44 @@ public class AppTest {
     }
 
     @Test
-    public void get_a_10_discount_when_3_different_books_in_cart() {
+    public void order_price_of_2_copies_of_book_2_is_16() {
+        final float COST = 16f;
+        Cart cart = new Cart();
+        cart.addToBooks(Book.BOOK2);
+        cart.addToBooks(Book.BOOK2);
+        cart.applyDiscounts();
+        float totalCost = cart.getOrderPrice();
+        assertEquals(COST, totalCost, 0);
+        assertTrue(COST == totalCost);
+    }
+
+    @Test
+    public void get_a_5_percent_discount_when_2_different_books_in_cart() {
+        final float COST = 15.2f;
+        Cart cart = new Cart();
+        cart.addToBooks(Book.BOOK1);
+        cart.addToBooks(Book.BOOK2);
+        cart.applyDiscounts();
+        float totalCost = cart.getOrderPrice();
+        assertEquals(COST, totalCost, 0);
+        assertTrue(COST == totalCost);
+    }
+
+    @Test
+    public void order_price_of_3_books_is_24() {
+        final float COST = 24f;
+        Cart cart = new Cart();
+        cart.addToBooks(Book.BOOK3);
+        cart.addToBooks(Book.BOOK3);
+        cart.addToBooks(Book.BOOK3);
+        cart.applyDiscounts();
+        float totalCost = cart.getOrderPrice();
+        assertEquals(COST, totalCost, 0);
+        assertTrue(COST == totalCost);
+    }
+
+    @Test
+    public void get_a_10_percent_discount_when_3_different_books_in_cart() {
         final float COST = 21.6f;
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
@@ -62,12 +84,13 @@ public class AppTest {
     }
 
     @Test
-    public void dont_get_discount_if_all_3_books_in_cart_books_are_the_same() {
-        final float COST = 24f;
+    public void order_price_of_4_of_the_same_book_is_32() {
+        final float COST = 32f;
         Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
+        cart.addToBooks(Book.BOOK4);
+        cart.addToBooks(Book.BOOK4);
+        cart.addToBooks(Book.BOOK4);
+        cart.addToBooks(Book.BOOK4);
         cart.applyDiscounts();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
@@ -75,7 +98,7 @@ public class AppTest {
     }
 
     @Test
-    public void get_a_20_discount_when_4_different_books_in_cart() {
+    public void get_a_20_percent_discount_when_4_different_books_in_cart() {
         final float COST = 25.6f;
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
@@ -87,15 +110,15 @@ public class AppTest {
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
     }
-
     @Test
-    public void dont_get_discount_if_all_4_books_in_cart_books_are_the_same() {
-        final float COST = 32f;
+    public void order_price_of_5_of_the_same_book_is_40() {
+        final float COST = 40f;
         Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
+        cart.addToBooks(Book.BOOK5);
+        cart.addToBooks(Book.BOOK5);
+        cart.addToBooks(Book.BOOK5);
+        cart.addToBooks(Book.BOOK5);
+        cart.addToBooks(Book.BOOK5);
         cart.applyDiscounts();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
@@ -103,7 +126,7 @@ public class AppTest {
     }
 
     @Test
-    public void get_a_25_discount_when_5_different_books_in_cart() {
+    public void get_a_30_percent_discount_when_5_different_books_in_cart() {
         final float COST = 28f;
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
@@ -118,14 +141,64 @@ public class AppTest {
     }
 
     @Test
-    public void dont_get_discount_if_all_5_books_in_cart_books_are_the_same() {
-        final float COST = 40f;
+    public void order_price_of_6_of_the_same_book_is_48() {
+        final float COST = 48f;
+        Cart cart = new Cart();
+        cart.addToBooks(Book.BOOK6);
+        cart.addToBooks(Book.BOOK6);
+        cart.addToBooks(Book.BOOK6);
+        cart.addToBooks(Book.BOOK6);
+        cart.addToBooks(Book.BOOK6);
+        cart.addToBooks(Book.BOOK6);
+        cart.applyDiscounts();
+        float totalCost = cart.getOrderPrice();
+        assertEquals(COST, totalCost, 0);
+        assertTrue(COST == totalCost);
+    }
+    @Test
+    public void get_a_40_percent_discount_when_6_different_books_in_cart() {
+        final float COST = 28.8f;
         Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
+        cart.addToBooks(Book.BOOK2);
+        cart.addToBooks(Book.BOOK3);
+        cart.addToBooks(Book.BOOK4);
+        cart.addToBooks(Book.BOOK5);
+        cart.addToBooks(Book.BOOK6);
+        cart.applyDiscounts();
+        float totalCost = cart.getOrderPrice();
+        assertEquals(COST, totalCost, 0);
+        assertTrue(COST == totalCost);
+    }
+
+    @Test
+    public void order_price_for_7_of_the_same_book_is_56() {
+        final float COST = 56f;
+        Cart cart = new Cart();
+        cart.addToBooks(Book.BOOK7);
+        cart.addToBooks(Book.BOOK7);
+        cart.addToBooks(Book.BOOK7);
+        cart.addToBooks(Book.BOOK7);
+        cart.addToBooks(Book.BOOK7);
+        cart.addToBooks(Book.BOOK7);
+        cart.addToBooks(Book.BOOK7);
+        cart.applyDiscounts();
+        float totalCost = cart.getOrderPrice();
+        assertEquals(COST, totalCost, 0);
+        assertTrue(COST == totalCost);
+    }
+
+    @Test
+    public void get_a_50_percent_discount_when_7_different_books_in_cart() {
+        final float COST = 28f;
+        Cart cart = new Cart();
         cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
+        cart.addToBooks(Book.BOOK2);
+        cart.addToBooks(Book.BOOK3);
+        cart.addToBooks(Book.BOOK4);
+        cart.addToBooks(Book.BOOK5);
+        cart.addToBooks(Book.BOOK6);
+        cart.addToBooks(Book.BOOK7);
         cart.applyDiscounts();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
@@ -149,86 +222,7 @@ public class AppTest {
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
     }
-    @Test
-    public void get_a_25_discount_when_6_different_books_in_cart() {
-        final float COST = 28.8f;
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK2);
-        cart.addToBooks(Book.BOOK3);
-        cart.addToBooks(Book.BOOK4);
-        cart.addToBooks(Book.BOOK5);
-        cart.addToBooks(Book.BOOK6);
-        cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
-    }
 
-    @Test
-    public void dont_get_discount_if_all_6_books_in_cart_books_are_the_same() {
-        final float COST = 48f;
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
-    }
-    @Test
-    public void get_a_25_discount_when_7_different_books_in_cart() {
-        final float COST = 28f;
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK2);
-        cart.addToBooks(Book.BOOK3);
-        cart.addToBooks(Book.BOOK4);
-        cart.addToBooks(Book.BOOK5);
-        cart.addToBooks(Book.BOOK6);
-        cart.addToBooks(Book.BOOK7);
-        cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
-    }
-
-    @Test
-    public void dont_get_discount_if_all_7_books_in_cart_books_are_the_same() {
-        final float COST = 56f;
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
-    }
-
-    @Test
-    public void getRecipe(){
-        final String RECIPE = "TOTAL PRICE AFTER DISCOUNTS: 49.6";
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK2);
-        cart.addToBooks(Book.BOOK2);
-        cart.addToBooks(Book.BOOK3);
-        cart.addToBooks(Book.BOOK3);
-        cart.addToBooks(Book.BOOK4);
-        cart.addToBooks(Book.BOOK5);
-        cart.applyDiscounts();
-        assertEquals(RECIPE, cart.toString());
-    }
 
     @Test
     public void get_a_correct_discount() {
@@ -253,26 +247,18 @@ public class AppTest {
     }
 
     @Test
-    public void get_a_5_discount_when_2_copies_of_books_6_and_7_are_in_cart() {
-        final float COST = 15.2f;
+    public void get_recipe_of_ordered_books() {
+        final String RECIPE = "TOTAL PRICE AFTER DISCOUNTS: 49.6";
         Cart cart = new Cart();
+        cart.addToBooks(Book.BOOK1);
         cart.addToBooks(Book.BOOK1);
         cart.addToBooks(Book.BOOK2);
+        cart.addToBooks(Book.BOOK2);
+        cart.addToBooks(Book.BOOK3);
+        cart.addToBooks(Book.BOOK3);
+        cart.addToBooks(Book.BOOK4);
+        cart.addToBooks(Book.BOOK5);
         cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
-    }
-
-    @Test
-    public void dont_get_discount_when_2_copies_of_books_7_are_in_cart() {
-        final float COST = 16f;
-        Cart cart = new Cart();
-        cart.addToBooks(Book.BOOK1);
-        cart.addToBooks(Book.BOOK1);
-        cart.applyDiscounts();
-        float totalCost = cart.getOrderPrice();
-        assertEquals(COST, totalCost, 0);
-        assertTrue(COST == totalCost);
+        assertEquals(RECIPE, cart.toString());
     }
 }
