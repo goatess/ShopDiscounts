@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    
     private static final float BASE_DISCOUNT = 0.05f;
     private static final int DISCOUNT_THRESHOLD = 4;
     private float orderPrice, discount;
@@ -17,14 +16,13 @@ public class Cart {
         cart.add(book);
     }
 
-    public void orderItemsInCart() {
-        applyDiscount(makeLot());
-        while (cart.size() > 0) {
-            orderItemsInCart();
-        }
+    public void applyDiscounts() {
+       while (cart.size() > 0) {
+            applyDiscount(makeLot());
+        } 
     }
-    
-    /** adds book to discounted lot  */
+
+    /** adds book to discounted lot */
     private List<Book> makeLot() {
         lot = new ArrayList<>();
 
@@ -34,7 +32,6 @@ public class Cart {
                 lot.add(book);
             }
         }
-
         order.addAll(lot);
         return lot;
     }
