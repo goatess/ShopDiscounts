@@ -12,7 +12,7 @@ public class Cart {
         books = new ArrayList<>();
     }
     
-    public void addToCart(Book book) {
+    public void addToBooks(Book book) {
         books.add(book);
     }
     
