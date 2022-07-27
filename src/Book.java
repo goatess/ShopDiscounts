@@ -19,6 +19,11 @@ public enum Book {
     public int getPrice() {
         return PRICE;
     }
+
+    public String getTITLE() {
+        return TITLE;
+    }
+
     @Override
     public String toString() {
         String price = String.valueOf(PRICE);
