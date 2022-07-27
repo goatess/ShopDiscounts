@@ -10,7 +10,7 @@ public class Cart {
         order = new ArrayList<>();
     }
 
-    public void applyDiscounts() {
+    public void calculatePrice() {
         priceCalculator = new PriceCalculator(order);
         this.orderPrice = priceCalculator.getOrderPrice();        
     }

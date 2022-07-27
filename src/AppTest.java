@@ -17,7 +17,7 @@ public class AppTest {
         final float COST = 8f;
         Cart cart = new Cart();
         cart.addToOrder(Book.BOOK1);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 1);
     }
@@ -27,7 +27,7 @@ public class AppTest {
         Cart cart = new Cart();
         cart.addToOrder(Book.BOOK1);
         cart.addToOrder(Book.BOOK1);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -39,7 +39,7 @@ public class AppTest {
         Cart cart = new Cart();
         cart.addToOrder(Book.BOOK2);
         cart.addToOrder(Book.BOOK2);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -51,7 +51,7 @@ public class AppTest {
         Cart cart = new Cart();
         cart.addToOrder(Book.BOOK1);
         cart.addToOrder(Book.BOOK2);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -64,7 +64,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK3);
         cart.addToOrder(Book.BOOK3);
         cart.addToOrder(Book.BOOK3);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -77,7 +77,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK1);
         cart.addToOrder(Book.BOOK2);
         cart.addToOrder(Book.BOOK3);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -91,7 +91,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK4);
         cart.addToOrder(Book.BOOK4);
         cart.addToOrder(Book.BOOK4);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -105,7 +105,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK2);
         cart.addToOrder(Book.BOOK3);
         cart.addToOrder(Book.BOOK4);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -119,7 +119,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK5);
         cart.addToOrder(Book.BOOK5);
         cart.addToOrder(Book.BOOK5);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -134,7 +134,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK3);
         cart.addToOrder(Book.BOOK4);
         cart.addToOrder(Book.BOOK5);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -150,7 +150,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK6);
         cart.addToOrder(Book.BOOK6);
         cart.addToOrder(Book.BOOK6);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -165,7 +165,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK4);
         cart.addToOrder(Book.BOOK5);
         cart.addToOrder(Book.BOOK6);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -182,7 +182,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK7);
         cart.addToOrder(Book.BOOK7);
         cart.addToOrder(Book.BOOK7);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -199,7 +199,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK5);
         cart.addToOrder(Book.BOOK6);
         cart.addToOrder(Book.BOOK7);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -217,7 +217,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK3);
         cart.addToOrder(Book.BOOK4);
         cart.addToOrder(Book.BOOK5);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -240,7 +240,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK6);
         cart.addToOrder(Book.BOOK7);
         cart.addToOrder(Book.BOOK7);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         float totalCost = cart.getOrderPrice();
         assertEquals(COST, totalCost, 0);
         assertTrue(COST == totalCost);
@@ -258,7 +258,7 @@ public class AppTest {
         cart.addToOrder(Book.BOOK3);
         cart.addToOrder(Book.BOOK4);
         cart.addToOrder(Book.BOOK5);
-        cart.applyDiscounts();
+        cart.calculatePrice();
         assertEquals(RECIPE, cart.toString());
     }
 }
