@@ -3,7 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class AppTest {
+public class CartTest {
 
     @Test
     public void price_of_one_copy_of_any_book_is_8_euros() {

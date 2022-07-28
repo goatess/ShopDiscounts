@@ -4,18 +4,24 @@ import java.util.List;
 public class PriceCalculator {
     private static final float BASE_DISCOUNT = 0.05f;
     private static final int MULTIPLIER_THRESHOLD = 4;
-    private int lowMultiplier, highMultiplier; 
     private float orderPrice, lotPrice, lotDiscount;
     private List<Book> order, lot;
 
-    public PriceCalculator(List<Book>order) {
+    public PriceCalculator(List<Book> order) {
         this.order = order;
         while (this.order.size() > 0) {
-            applyDiscount(makeLot());
+            applyPromo();
         }
     }
-    
-    private List<Book> makeLot() {
+
+    private void applyPromo() {
+        makePromoLot();
+        selectBestDiscount();
+        applyDiscount();
+        addToOrderPrice();
+    }
+
+    private void makePromoLot() {
         lot = new ArrayList<>();
         for (Book book : Book.values()) {
             if (order.contains(book)) {
@@ -23,33 +29,35 @@ public class PriceCalculator {
                 lot.add(book);
             }
         }
-        return lot;
-    }
-
-    private void applyDiscount(List<Book> lot) {
-        lotPrice = 0f;
-        selectBestDiscount();
-        for (Book book : lot) {
-            lotPrice += book.getPrice();
-        }
-
-        lotPrice -= (lotPrice * lotDiscount);
-        orderPrice += lotPrice;
     }
 
     private void selectBestDiscount() {
-        lowMultiplier = lot.size() - 1;
-        highMultiplier = lot.size() + (lot.size() - MULTIPLIER_THRESHOLD);
-        // get a low discount
-        if (lot.size() < MULTIPLIER_THRESHOLD) {
+        int lowMultiplier, highMultiplier, lotSize;
+        lotSize = lot.size();
+        lowMultiplier = lotSize - 1;
+        highMultiplier = lotSize + (lotSize - MULTIPLIER_THRESHOLD);
+
+        if (lotSize < MULTIPLIER_THRESHOLD) {
             lotDiscount = BASE_DISCOUNT * lowMultiplier;
-        // get a standard discount
-        } else if (lot.size() == MULTIPLIER_THRESHOLD) {
-            lotDiscount = BASE_DISCOUNT * lot.size();
-        // get a high discount
+
+        } else if (lotSize == MULTIPLIER_THRESHOLD) {
+            lotDiscount = BASE_DISCOUNT * lotSize;
+
         } else {
             lotDiscount = BASE_DISCOUNT * highMultiplier;
         }
+    }
+
+    private void applyDiscount() {
+        lotPrice = 0f;
+        for (Book book : lot) {
+            lotPrice += book.getPrice();
+        }
+        lotPrice -= (lotPrice * lotDiscount);
+    }
+
+    private void addToOrderPrice() {
+        orderPrice += lotPrice;
     }
 
     public float getOrderPrice() {
